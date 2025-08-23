@@ -1,0 +1,136 @@
+openapi: 3.0.0
+info:
+  title: API de Usuários
+  description: API para gerenciar usuários.
+  version: 1.0.0
+
+paths:
+  # Categoria: Usuários
+  /api/users:
+    post:
+      summary: Cadastrar usuário
+      description: Cria um novo usuário no sistema.
+      tags:
+        - Usuários
+      requestBody:
+        description: Dados do usuário para criação
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - username
+                - password
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  username:
+                    type: string
+        '400':
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Erro interno do servidor
+
+  /api/users/{id}:
+    get:
+      summary: Buscar usuário pelo id
+      description: Retorna os dados de um usuário pelo ID.
+      tags:
+        - Usuários
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuário encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  username:
+                    type: string
+        '400':
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Erro interno do servidor
+    delete:
+      summary: Excluir usuário
+      description: Realiza a exclusão lógica de um usuário pelo ID.
+      tags:
+        - Usuários
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Usuário excluído com sucesso (exclusão lógica)
+        '400':
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Usuário não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Erro interno do servidor
