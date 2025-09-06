@@ -11,6 +11,9 @@ components:
       scheme: bearer
       bearerFormat: JWT
 
+security:
+  - bearerAuth: []
+
 paths:
   # Categoria: Usuários
   /api/users:
@@ -29,14 +32,11 @@ paths:
               required:
                 - name
                 - email
-                - username
                 - password
               properties:
                 name:
                   type: string
                 email:
-                  type: string
-                username:
                   type: string
                 password:
                   type: string
@@ -53,8 +53,6 @@ paths:
                   name:
                     type: string
                   email:
-                    type: string
-                  username:
                     type: string
         '400':
           description: Dados inválidos
@@ -93,8 +91,6 @@ paths:
                   name:
                     type: string
                   email:
-                    type: string
-                  username:
                     type: string
         '400':
           description: Dados inválidos

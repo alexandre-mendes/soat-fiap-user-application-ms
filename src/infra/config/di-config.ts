@@ -47,4 +47,4 @@ const validateTokenUseCase: ValidateTokenUseCase = new DefaultValidateTokenUseCa
 */
 const userController = new UserController(addUserUseCase, findUserByIdUseCase, deleteUserUseCase, authenticateUserUseCase, validateTokenUseCase);
 
-export { userController };
+export { userController, validateTokenUseCase };

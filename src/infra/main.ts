@@ -8,6 +8,7 @@ import userRouter from './api/userRouter';
 import { NextFunction, Request, Response } from 'express';
 import { DomainError } from '../domain/error/DomainError';
 import healthRouter from './api/healthRouter';
+import { authMiddleware } from './api/authMiddleware';
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,7 @@ app.use(cors({
     origin: 'http://localhost:3000'
 }));
 
+app.use(authMiddleware);
 app.use(userRouter);
 app.use(healthRouter);
 app.use(swaggerRouter);
