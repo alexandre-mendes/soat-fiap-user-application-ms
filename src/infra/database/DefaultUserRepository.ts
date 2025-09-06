@@ -36,12 +36,15 @@ export class DefaultUserRepository implements UserRepository {
     }
 
     private parseToDB(entity: User) {
-        return { id: entity.id, name: entity.name, email: entity.email, password: entity.password } as IUser;
+        return { id: entity.id, name: entity.name, email: entity.email, password: entity.password, deleted: entity.deleted, createdAt: entity.createdAt?.toISOString(), updatedAt: entity.updatedAt?.toISOString() } as IUser;
     }
 
     private parseToEntity(db: IUser) {
         const entity = new User(db.email, db.name, db.password);
         entity.id = db.id;
+        entity.deleted = db.deleted;
+        entity.createdAt = new Date(db.createdAt);
+        entity.updatedAt = new Date(db.updatedAt);
         return entity;
     }
 

@@ -69,4 +69,16 @@ export class User {
     get deleted() { 
         return this._deleted;
     }
+
+    set deleted(value: boolean) {
+        this._deleted = value;
+    }
+
+    set updatedAt(value: Date) {
+        this._updatedAt = value;
+    }
+
+    set createdAt(value: Date) {
+        this._createdAt = value;
+    }
 }

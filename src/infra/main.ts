@@ -30,7 +30,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     res.status(500).send({ message: 'Ocorreu um erro inesperado.' });
 });
 
-app.listen(3000, () => {
-    console.log(`Servidor rodando em http://localhost:3000`);
-    console.log(`Swagger disponível em http://localhost:3000/api-docs`);
+const PORT = process.env.SERVER_PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
+    console.log(`Swagger disponível em http://localhost:${PORT}/api-docs`);
 });
