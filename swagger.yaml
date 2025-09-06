@@ -4,6 +4,13 @@ info:
   description: API para gerenciar usuários.
   version: 1.0.0
 
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
 paths:
   # Categoria: Usuários
   /api/users:
@@ -180,6 +187,40 @@ paths:
               schema:
                 type: object
                 properties:
+                  message:
+                    type: string
+        '500':
+          description: Erro interno do servidor
+  /api/auth/validate:
+    post:
+      summary: Validar token JWT
+      description: Valida o token JWT informado no header Authorization ou no corpo da requisição.
+      tags:
+        - Autenticação
+      security:
+        - bearerAuth: []
+
+      responses:
+        '200':
+          description: Token válido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                  decoded:
+                    type: object
+        '401':
+          description: Token inválido ou não informado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
                   message:
                     type: string
         '500':

@@ -13,6 +13,8 @@ import { DeleteUserUseCase } from "../../application/usecase/DeleteUserUseCase";
 import { DefaultDeleteUserUseCase } from "../../application/usecase/implementations/command/DefaultDeleteUserUseCase";
 import { AuthenticateUserUseCase } from '../../application/usecase/AuthenticateUserUseCase';
 import { DefaultAuthenticateUserUseCase } from '../../application/usecase/implementations/command/DefaultAuthenticateUserUseCase';
+import { ValidateTokenUseCase } from '../../application/usecase/ValidateTokenUseCase';
+import { DefaultValidateTokenUseCase } from '../../application/usecase/implementations/command/DefaultValidateTokenUseCase';
 
 
 /*
@@ -38,10 +40,11 @@ const findUserByIdUseCase: FindUserByIdUseCase = new DefaultFindUserByIdUseCase(
 const deleteUserUseCase: DeleteUserUseCase = new DefaultDeleteUserUseCase(userRepository); 
 const jwtSecret = process.env.JWT_SECRET || 'dev-secret';
 const authenticateUserUseCase: AuthenticateUserUseCase = new DefaultAuthenticateUserUseCase(userRepository, jwtSecret);
+const validateTokenUseCase: ValidateTokenUseCase = new DefaultValidateTokenUseCase(jwtSecret);
 
 /*
     Controllers
 */
-const userController = new UserController(addUserUseCase, findUserByIdUseCase, deleteUserUseCase, authenticateUserUseCase);
+const userController = new UserController(addUserUseCase, findUserByIdUseCase, deleteUserUseCase, authenticateUserUseCase, validateTokenUseCase);
 
 export { userController };
