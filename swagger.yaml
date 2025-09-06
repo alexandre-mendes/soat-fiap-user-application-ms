@@ -134,3 +134,53 @@ paths:
                     type: string
         '500':
           description: Erro interno do servidor
+
+  # Categoria: Autenticação
+  /api/auth/login:
+    post:
+      summary: Autenticar usuário
+      description: Realiza autenticação local de usuário e retorna um JWT.
+      tags:
+        - Autenticação
+      requestBody:
+        description: Credenciais de login
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Autenticado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  token:
+                    type: string
+        '400':
+          description: Credenciais inválidas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Erro interno do servidor

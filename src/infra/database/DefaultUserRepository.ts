@@ -43,6 +43,7 @@ export class DefaultUserRepository implements UserRepository {
         const entity = new User(db.email, db.name, db.password);
         entity.id = db.id;
         entity.deleted = db.deleted;
+        entity.password = db.password;
         entity.createdAt = new Date(db.createdAt);
         entity.updatedAt = new Date(db.updatedAt);
         return entity;

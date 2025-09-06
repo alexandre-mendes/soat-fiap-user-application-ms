@@ -11,6 +11,8 @@ import { IDatabase } from "../database/dynamo/IDatabase";
 import { IUser, UserDynamoDatabase } from "../database/dynamo/UserDynamoDatabase";
 import { DeleteUserUseCase } from "../../application/usecase/DeleteUserUseCase";
 import { DefaultDeleteUserUseCase } from "../../application/usecase/implementations/command/DefaultDeleteUserUseCase";
+import { AuthenticateUserUseCase } from '../../application/usecase/AuthenticateUserUseCase';
+import { DefaultAuthenticateUserUseCase } from '../../application/usecase/implementations/command/DefaultAuthenticateUserUseCase';
 
 
 /*
@@ -34,10 +36,12 @@ const userRepository: UserRepository = new DefaultUserRepository(userDatabase);
 const addUserUseCase: AddUserUseCase = new DefaultAddUserUseCase(userRepository);
 const findUserByIdUseCase: FindUserByIdUseCase = new DefaultFindUserByIdUseCase(userRepository);
 const deleteUserUseCase: DeleteUserUseCase = new DefaultDeleteUserUseCase(userRepository); 
+const jwtSecret = process.env.JWT_SECRET || 'dev-secret';
+const authenticateUserUseCase: AuthenticateUserUseCase = new DefaultAuthenticateUserUseCase(userRepository, jwtSecret);
 
 /*
     Controllers
 */
-const userController = new UserController(addUserUseCase, findUserByIdUseCase, deleteUserUseCase);
+const userController = new UserController(addUserUseCase, findUserByIdUseCase, deleteUserUseCase, authenticateUserUseCase);
 
 export { userController };

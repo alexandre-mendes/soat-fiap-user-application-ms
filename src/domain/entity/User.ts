@@ -38,8 +38,20 @@ export class User {
         return `${salt}:${hash}`;
     }
 
+    public verifyPassword(password: string): boolean {
+        console.log('Verifying password for user:', this._password);
+        const [salt, hash] = this._password.split(":");
+        const inputHash = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('hex');
+        console.log('Input hash:', inputHash);
+        return inputHash === hash;
+    }
+
     get password() {
         return this._password;
+    }
+
+    set password(password: string) {
+        this._password = password;
     }
 
     get id() {
