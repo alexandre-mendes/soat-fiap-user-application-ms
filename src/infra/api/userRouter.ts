@@ -9,5 +9,6 @@ userRouter.post('/api/users', errorHandler(userController.create.bind(userContro
 userRouter.delete('/api/users/:id', errorHandler(userController.delete.bind(userController)));
 userRouter.post('/api/auth/login', errorHandler(userController.authenticate.bind(userController)));
 userRouter.post('/api/auth/validate', errorHandler(userController.validateToken.bind(userController)));
+userRouter.get('/api/users', errorHandler(userController.list.bind(userController)));
 
 export default userRouter;

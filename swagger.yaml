@@ -66,6 +66,41 @@ paths:
         '500':
           description: Erro interno do servidor
 
+    get:
+      summary: Listar usuários
+      description: Retorna todos os usuários não deletados.
+      tags:
+        - Usuários
+      responses:
+        '200':
+          description: Lista de usuários
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    email:
+                      type: string
+        '401':
+          description: Token inválido ou não informado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                  message:
+                    type: string
+        '500':
+          description: Erro interno do servidor
+
   /api/users/{id}:
     get:
       summary: Buscar usuário pelo id

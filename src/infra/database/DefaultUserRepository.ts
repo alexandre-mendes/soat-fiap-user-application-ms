@@ -35,6 +35,13 @@ export class DefaultUserRepository implements UserRepository {
         return undefined;
     }
 
+    async findAll(): Promise<User[]> {
+        const query = new DBQuery();
+        query.add(new DBCriteria('deleted', false, DBOperation.EQUALS));
+        const results = await this.database.findAllByQuery(query);
+        return (results || []).map(db => this.parseToEntity(db));
+    }
+
     private parseToDB(entity: User) {
         return { id: entity.id, name: entity.name, email: entity.email, password: entity.password, deleted: entity.deleted, createdAt: entity.createdAt?.toISOString(), updatedAt: entity.updatedAt?.toISOString() } as IUser;
     }

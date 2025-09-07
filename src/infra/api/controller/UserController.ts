@@ -4,6 +4,7 @@ import { FindUserByIdUseCase } from "../../../application/usecase/FindUserByIdUs
 import { DeleteUserUseCase } from "../../../application/usecase/DeleteUserUseCase";
 import { AuthenticateUserUseCase } from '../../../application/usecase/AuthenticateUserUseCase';
 import { ValidateTokenUseCase } from '../../../application/usecase/ValidateTokenUseCase';
+import { ListUsersUseCase } from '../../../application/usecase/ListUsersUseCase';
 
 export class UserController {
 
@@ -12,7 +13,8 @@ export class UserController {
         private findUserByIdUseCase: FindUserByIdUseCase,
         private deleteUserUseCase: DeleteUserUseCase,
         private authenticateUserUseCase: AuthenticateUserUseCase,
-        private validateTokenUseCase: ValidateTokenUseCase // novo parâmetro
+        private validateTokenUseCase: ValidateTokenUseCase,
+        private listUsersUseCase: ListUsersUseCase
     ) {
     }
 
@@ -48,5 +50,10 @@ export class UserController {
         } else {
             return res.status(401).json(result);
         }
+    }
+
+    async list(req: Request, res: Response) {
+        const users = await this.listUsersUseCase.execute();
+        return res.json(users).status(200);
     }
 }
