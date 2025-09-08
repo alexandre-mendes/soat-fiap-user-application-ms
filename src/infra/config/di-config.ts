@@ -1,4 +1,3 @@
-import { Delete } from "@aws-sdk/client-dynamodb";
 import { UserRepository } from "../../application/repository/UserRepository";
 import { AddUserUseCase } from '../../application/usecase/AddUserUseCase';
 import { FindUserByIdUseCase } from "../../application/usecase/FindUserByIdUseCase";
@@ -17,6 +16,7 @@ import { ValidateTokenUseCase } from '../../application/usecase/ValidateTokenUse
 import { DefaultValidateTokenUseCase } from '../../application/usecase/implementations/command/DefaultValidateTokenUseCase';
 import { ListUsersUseCase } from '../../application/usecase/ListUsersUseCase';
 import { DefaultListUsersUseCase } from '../../application/usecase/implementations/query/DefaultListUsersUseCase';
+import { CreateAdminIfEmpty } from "./create-admin-if-empty";
 
 
 /*
@@ -49,5 +49,11 @@ const listUsersUseCase: ListUsersUseCase = new DefaultListUsersUseCase(userRepos
     Controllers
 */
 const userController = new UserController(addUserUseCase, findUserByIdUseCase, deleteUserUseCase, authenticateUserUseCase, validateTokenUseCase, listUsersUseCase);
+
+/*
+    Scripts
+*/
+const createAdminIfEmpty = new CreateAdminIfEmpty(listUsersUseCase, addUserUseCase);
+createAdminIfEmpty.createAdminIfEmpty();
 
 export { userController, validateTokenUseCase };
