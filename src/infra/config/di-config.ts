@@ -17,6 +17,7 @@ import { DefaultValidateTokenUseCase } from '../../application/usecase/implement
 import { ListUsersUseCase } from '../../application/usecase/ListUsersUseCase';
 import { DefaultListUsersUseCase } from '../../application/usecase/implementations/query/DefaultListUsersUseCase';
 import { CreateAdminIfEmpty } from "./create-admin-if-empty";
+import { MetricsController } from "../api/controller/MetricsController";
 
 
 /*
@@ -49,11 +50,11 @@ const listUsersUseCase: ListUsersUseCase = new DefaultListUsersUseCase(userRepos
     Controllers
 */
 const userController = new UserController(addUserUseCase, findUserByIdUseCase, deleteUserUseCase, authenticateUserUseCase, validateTokenUseCase, listUsersUseCase);
-
+const metricsController = new MetricsController();
 /*
     Scripts
 */
 const createAdminIfEmpty = new CreateAdminIfEmpty(listUsersUseCase, addUserUseCase);
 createAdminIfEmpty.createAdminIfEmpty();
 
-export { userController, validateTokenUseCase };
+export { userController, metricsController, validateTokenUseCase };

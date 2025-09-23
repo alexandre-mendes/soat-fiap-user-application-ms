@@ -7,7 +7,8 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
     req.path.startsWith('/api/auth/login') ||
     req.path.startsWith('/api/auth/validate') ||
     req.path.startsWith('/api/health') ||
-    req.path.startsWith('/api-docs')
+    req.path.startsWith('/api-docs') ||
+    req.path.startsWith('/metrics')
   ) {
     return next();
   }
