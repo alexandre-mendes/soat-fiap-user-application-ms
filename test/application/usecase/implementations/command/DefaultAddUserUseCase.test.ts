@@ -9,11 +9,12 @@ describe('Testa inclusão de usuário', () => {
     let mockUserRepository: jest.Mocked<UserRepository>;
 
     beforeEach(() => {
-        mockUserRepository = {
-            findByEmail: jest.fn(),
-            save: jest.fn(),
-            findById: jest.fn()
-        } as jest.Mocked<UserRepository>;
+            mockUserRepository = {
+                findByEmail: jest.fn(),
+                save: jest.fn(),
+                findById: jest.fn(),
+                findAll: jest.fn()
+            } as jest.Mocked<UserRepository>;
 
         addUserUseCase = new DefaultAddUserUseCase(mockUserRepository);
     });

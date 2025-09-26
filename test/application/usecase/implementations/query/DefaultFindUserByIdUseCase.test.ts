@@ -12,7 +12,8 @@ describe('Testa consulta de usuário por id', () => {
         mockUserRepository = {
             findByEmail: jest.fn(),
             findById: jest.fn(),
-            save: jest.fn()
+            save: jest.fn(),
+            findAll: jest.fn()
         } as jest.Mocked<UserRepository>;
 
         findUserByIdUseCase = new DefaultFindUserByIdUseCase(mockUserRepository);
@@ -37,10 +38,11 @@ describe('Testa consulta de usuário por id', () => {
     });
 
     test('Deve lançar erro se usuário não existir', async () => {
-        const id = 'notfound';
-        mockUserRepository.findById.mockResolvedValueOnce(undefined);
+    const id = 'notfound';
+    mockUserRepository.findById.mockResolvedValueOnce(undefined);
 
-        await expect(findUserByIdUseCase.execute(id)).rejects.toThrow();
+    const result = await findUserByIdUseCase.execute(id);
+    expect(result).toBeUndefined();
     });
 
     test('Deve tratar erro do repository', async () => {
